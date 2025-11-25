@@ -111,10 +111,10 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
-                            <h6 class="my-0">Growers cider</h6>
-                            <small class="text-body-secondary">Brief description</small>
+                            <h6 class="my-0">Ayam</h6>
+                            <small class="text-body-secondary">Lvl 2</small>
                         </div>
-                        <span class="text-body-secondary">$12</span>
+                        <span class="text-body-secondary">$12 x 2</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
@@ -134,9 +134,17 @@
                         <span>Total (USD)</span>
                         <strong>$20</strong>
                     </li>
+                    <li>
+                        <div class="foodmart-form-group">
+                            <h5>
+                                <label class="text-primary">Note Cnh:</label>
+                            </h5>
+                            <textarea id="catatan-tambahan" name="catatan-tambahan" rows="4"></textarea>
+                        </div>
+                    </li>
                 </ul>
 
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Order</button>
             </div>
         </div>
     </div>
@@ -195,6 +203,8 @@
 
     @yield('content')
 
+    @include('layouts.frontend.footer')
+
     <script src="frontend/js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -203,5 +213,145 @@
     <script src="frontend/js/plugins.js"></script>
     <script src="frontend/js/script.js"></script>
 </body>
+<style>
+    .product-card {
+    position: relative;
+    font-family: 'Arial', sans-serif;
+}
+
+.product-stock-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #555;
+    width: 80px;
+    height: 35px;
+    border-radius: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.foodmart-select-container {
+    display: inline-block;
+    position: relative;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.foodmart-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 3px 20px 3px 8px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    line-height: 1.2;
+    height: auto;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: auto;
+}
+
+.foodmart-select:hover {
+    border-color: #ccc;
+}
+
+.foodmart-select:focus {
+    border-color: #989898;
+    outline: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* PERBAIKAN: Mengubah .qty menjadi inline-block agar sejajar dengan select */
+.qty {
+    display: inline-block;
+    font-size: 13px;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-right: 5px; 
+    vertical-align: middle;
+}
+
+.foodmart-select-container::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    font-size: 8px;
+    color: #888;
+    pointer-events: none;
+}
+
+/* CSS untuk Textarea (dipertahankan dari sebelumnya) */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 20px;
+}
+
+.foodmart-form-group {
+    padding: 0 5px;
+    font-family: 'Arial', sans-serif;
+}
+
+.foodmart-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.foodmart-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    resize: vertical;
+}
+
+.foodmart-form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.foodmart-form-group textarea::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.foodmart-form-group textarea::-webkit-resizer {
+    border-color: transparent #aaa #aaa transparent;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.foodmart-form-group textarea {
+    -moz-appearance: none;
+}
+</style>
 
 </html>
