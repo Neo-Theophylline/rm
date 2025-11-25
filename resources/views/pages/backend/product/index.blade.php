@@ -18,20 +18,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>batagor</td>
-                                    <td>25</td>
-                                    <td>Rp.15.000</td>
-                                    <td>
-                                        <div class="buttons">
-                                            <a href="/productshow" class="btn btn-outline-secondary btn-sm">Detail</a>
-                                            <a href="/productedit" class="btn btn-outline-warning btn-sm">Edit</a>
-                                            <a href="#" class="btn btn-outline-danger delete-btn btn-sm"
-                                                data-id="1">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse ($products as $product)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->product_stock }}</td>
+                                        <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+
+                                        <td style="text-align: center;">
+                                            <div class="buttons d-flex justify-content-center" style="gap: 6px;">
+                                                <a href="{{ route('product.show', $product->id) }}"
+                                                    class="btn btn-outline-secondary btn-sm">Detail</a>
+
+                                                <a href="{{ route('product.edit', $product->id) }}"
+                                                    class="btn btn-outline-warning btn-sm">Edit</a>
+
+                                                <form id="delete-form-{{ $product->id }}"
+                                                    action="{{ route('product.destroy', $product->id) }}" method="POST"
+                                                    style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete-btn"
+                                                        data-id="{{ $product->id }}">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">No product found.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

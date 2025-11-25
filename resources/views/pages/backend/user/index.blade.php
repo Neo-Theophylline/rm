@@ -6,41 +6,76 @@
                 <div class="card-body">
                     <a href="{{ route('user.create') }}" style="float: right;">Add data</a>
                     <h5 class="card-title">Small Table</h5>
+
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">name</th>
-                                    <th scope="col">role</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col" style="text-align: center; width: 120px;">option</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" style="text-align: center; width: 120px;">Option</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@rndragey</td>
-                                    <td>
-                                        <div class="buttons">
-                                            <a href="/usershow" class="btn btn-outline-secondary btn-sm">Detail</a>
-                                            <a href="/useredit" class="btn btn-outline-warning btn-sm">Edit</a>
-                                            <a href="#" class="btn btn-outline-danger delete-btn btn-sm"
-                                                data-id="1">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse ($users as $user)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ ucfirst($user->role) }}</td>
+
+                                        <td>
+                                            @if ($user->status == 'active')
+                                                <span class="badge bg-success">Active</span>
+                                            @else
+                                                <span class="badge bg-secondary">Inactive</span>
+                                            @endif
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <div class="buttons d-flex justify-content-center" style="gap: 6px;">
+
+                                                <a href="{{ route('user.show', $user->id) }}"
+                                                    class="btn btn-outline-secondary btn-sm">Detail</a>
+
+                                                <a href="{{ route('user.edit', $user->id) }}"
+                                                    class="btn btn-outline-warning btn-sm">Edit</a>
+
+                                                <form id="delete-form-{{ $user->id }}"
+                                                    action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                    style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete-btn"
+                                                        data-id="{{ $user->id }}">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">
+                                            No users found.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
+
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- sweet alert pisan --}}
+    {{-- SweetAlert --}}
     <script>
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -49,7 +84,7 @@
 
                 Swal.fire({
                     title: "Delete user?",
-                    text: "Are you sure?",
+                    text: "This action cannot be undone!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",

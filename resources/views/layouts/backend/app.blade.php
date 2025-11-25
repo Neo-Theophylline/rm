@@ -35,9 +35,9 @@
     {{-- alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- end alert --}}
-    
+
     {{-- stisla --}}
-    <style>
+    {{-- <style>
         /* 3.12 Button */
         .buttons .btn {
             margin: 0 8px 10px 0;
@@ -482,7 +482,7 @@
             color: transparent !important;
             pointer-events: none;
         }
-    </style>
+    </style> --}}
     {{-- end stisla --}}
 </head>
 
@@ -576,6 +576,13 @@
     <!-- Index js -->
     <script src="{{ asset('backend/assets/js/index.js') }}"></script>
 
+    {{-- text file input --}}
+    <script>
+        $('.custom-file-input').on('change', function() {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
 
 </body>
 
