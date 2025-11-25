@@ -13,18 +13,18 @@ Route::get('/', function () {
 Route::get('/h', function () {
     return view('pages.backend.home.index');
 });
-Route::get('/useredit', function () {
-    return view('pages.backend.user.edit');
-});
-Route::get('/usershow', function () {
-    return view('pages.backend.user.show');
-});
-Route::get('/productedit', function () {
-    return view('pages.backend.product.edit');
-});
-Route::get('/productshow', function () {
-    return view('pages.backend.product.show');
-});
+// Route::get('/useredit', function () {
+//     return view('pages.backend.user.edit');
+// });
+// Route::get('/usershow', function () {
+//     return view('pages.backend.user.show');
+// });
+// Route::get('/productedit', function () {
+//     return view('pages.backend.product.edit');
+// });
+// Route::get('/productshow', function () {
+//     return view('pages.backend.product.show');
+// });
 Route::get('/optionedit', function () {
     return view('pages.backend.option.edit');
 });
