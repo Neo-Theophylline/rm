@@ -18,7 +18,7 @@ Route::get('/useredit', function () {
 });
 Route::get('/usershow', function () {
     return view('pages.backend.user.show');
-});
+}); 
 Route::get('/productedit', function () {
     return view('pages.backend.product.edit');
 });
