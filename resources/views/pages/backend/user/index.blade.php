@@ -22,7 +22,7 @@
                                     <th scope="row">1</th>
                                     <td>Mark</td>
                                     <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>@rndragey</td>
                                     <td>
                                         <div class="buttons">
                                             <a href="/usershow" class="btn btn-outline-secondary btn-sm">Detail</a>
