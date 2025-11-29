@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Option;
 use Illuminate\Http\Request;
 
 class OptionBackendController extends Controller
@@ -12,7 +13,8 @@ class OptionBackendController extends Controller
      */
     public function index()
     {
-        return view('pages.backend.option.index');  
+        $options = Option::all();
+        return view('pages.backend.option.index', compact('options'));
     }
 
     /**
@@ -20,7 +22,7 @@ class OptionBackendController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.option.create');  
+        return view('pages.backend.option.create');
     }
 
     /**
@@ -28,15 +30,19 @@ class OptionBackendController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name'  => 'required|unique:options,name',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        return view('pages.backend.option.show');  
+        Option::create([
+            'name'  => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock
+        ]);
+
+        return redirect()->route('option.index')->with('success', 'Option created successfully');
     }
 
     /**
@@ -44,7 +50,8 @@ class OptionBackendController extends Controller
      */
     public function edit(string $id)
     {
-        return view('pages.backend.option.edit');  
+        $option = Option::findOrFail($id);
+        return view('pages.backend.option.edit', compact('option'));
     }
 
     /**
@@ -52,7 +59,21 @@ class OptionBackendController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $option = Option::findOrFail($id);
+
+        $request->validate([
+            'name'  => 'required|unique:options,name,' . $option->id,
+            'price' => 'required|numeric',
+            'stock' => 'required|integer'
+        ]);
+
+        $option->update([
+            'name'  => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock
+        ]);
+
+        return redirect()->route('option.index')->with('success', 'Option updated successfully');
     }
 
     /**
@@ -60,6 +81,9 @@ class OptionBackendController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $option = Option::findOrFail($id);
+        $option->delete();
+
+        return redirect()->route('option.index')->with('success', 'Option deleted successfully');
     }
 }

@@ -18,19 +18,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>extra size</td>
-                                    <td>10</td>
-                                    <td>Rp.5.000</td>
-                                    <td>
-                                        <div class="buttons">
-                                            <a href="/optionedit" class="btn btn-outline-warning btn-sm">Edit</a>
-                                            <a href="#" class="btn btn-outline-danger delete-btn btn-sm"
-                                                data-id="1">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
+
+                                @foreach ($options as $index => $option)
+                                    <tr>
+                                        <th scope="row">{{ $index + 1 }}</th>
+                                        <td>{{ $option->name }}</td>
+                                        <td>{{ $option->stock }}</td>
+                                        <td>Rp.{{ number_format($option->price, 0, ',', '.') }}</td>
+                                        <td>
+                                            <div class="buttons">
+                                                <a href="{{ route('option.edit', $option->id) }}"
+                                                    class="btn btn-outline-warning btn-sm">Edit</a>
+
+                                                <a href="#" class="btn btn-outline-danger delete-btn btn-sm"
+                                                    data-id="{{ $option->id }}">Delete</a>
+
+                                                {{-- HIDDEN DELETE FORM --}}
+                                                <form id="delete-form-{{ $option->id }}"
+                                                    action="{{ route('option.destroy', $option->id) }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
