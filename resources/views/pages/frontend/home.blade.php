@@ -8,7 +8,7 @@
 
                     <div class="banner-blocks">
 
-                        <div class="banner-ad large bg-info block-1">
+                        {{-- <div class="banner-ad large bg-info block-1">
 
                             <div class="swiper main-swiper">
                                 <div class="swiper-wrapper">
@@ -59,8 +59,52 @@
                                 <div class="swiper-pagination"></div>
 
                             </div>
-                        </div>
+                        </div> --}}
 
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="banner-ad bg-success-subtle block-2"
                             style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
                             <div class="row banner-content p-5">
