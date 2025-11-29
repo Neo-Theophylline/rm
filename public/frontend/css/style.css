@@ -358,6 +358,18 @@ h1,h2,h3,h4,h5,h6 {
 .block-2 { grid-area: 1 / 8 / 2 / 13; }
 .block-3 { grid-area: 2 / 8 / 3 / 13; }
 
+.banner-blocks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+    gap: 20px; /* jarak antar card */
+}
+
+/* Matikan pengaturan grid-area lama */
+.block-2, .block-3, .block-4, .block-5 {
+    grid-area: unset !important;
+}
+
+
 @media screen and (max-width:1140px) {
   .banner-blocks {
     grid-template-columns: 1fr;

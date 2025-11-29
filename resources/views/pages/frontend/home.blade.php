@@ -4,11 +4,12 @@
         style="background-image: url('frontend/images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
         <div class="container-fluid">
             <div class="row">
+              
                 <div class="col-md-12">
 
                     <div class="banner-blocks">
 
-                        <div class="banner-ad large bg-info block-1">
+                        {{-- <div class="banner-ad large bg-info block-1">
 
                             <div class="swiper main-swiper">
                                 <div class="swiper-wrapper">
@@ -59,8 +60,9 @@
                                 <div class="swiper-pagination"></div>
 
                             </div>
-                        </div>
+                        </div> --}}
 
+                        {{-- ini objeknya --}}
                         <div class="banner-ad bg-success-subtle block-2"
                             style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
                             <div class="row banner-content p-5">
@@ -73,6 +75,59 @@
                             </div>
                         </div>
 
+                        {{-- ini objeknya --}}
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- ini objeknya --}}
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- ini objeknya --}}
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- ini objeknya --}}
+                        <div class="banner-ad bg-success-subtle block-2"
+                            style="background:url('frontend/images/ad-image-1.png') no-repeat;background-position: right bottom">
+                            <div class="row banner-content p-5">
+
+                                <div class="content-wrapper col-md-7">
+                                    <div class="categories sale mb-3 pb-3">20% off</div>
+                                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- ini juga contoh objeknya --}}
                         <div class="banner-ad bg-danger block-3"
                             style="background:url('frontend/images/ad-image-2.png') no-repeat;background-position: right bottom">
                             <div class="row banner-content p-5">
@@ -1129,8 +1184,7 @@
                                     <div class="col">
                                         <div class="product-item">
                                             <span class="badge bg-success position-absolute m-3">-30%</span>
-                                            <a href="#" class="btn-wishlist"><svg width="24"
-                                                    height="24">
+                                            <a href="#" class="btn-wishlist"><svg width="24" height="24">
                                                     <use xlink:href="#heart"></use>
                                                 </svg></a>
                                             <figure>
