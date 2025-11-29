@@ -133,38 +133,6 @@
                                 <img src="frontend/images/icon-wine-glass-bottle.png" alt="Category Thumbnail">
                                 <h3 class="category-title">Fruits & Veges</h3>
                             </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-animal-products-drumsticks.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-bread-herb-flour.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
-                            <a href="index.html" class="nav-link category-item swiper-slide">
-                                <img src="frontend/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                                <h3 class="category-title">Fruits & Veges</h3>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -197,59 +165,113 @@
                     <div class="products-carousel swiper">
                         <div class="swiper-wrapper">
 
-                            <div class="product-item swiper-slide">
-                                <span class="badge bg-success position-absolute m-3">-15%</span>
-                                <div class="product-card">
-                                    <div class="product-stock-badge">12000</div>
-                                </div>
-                                <figure>
-                                    <a href="index.html" title="Product Title">
-                                        <img src="frontend/images/thumb-tomatoes.png" class="tab-image">
-                                    </a>
-                                </figure>
-                                <h3>Sunstar Fresh Melon Juice</h3>
-                                <div class="product-info-line">
-                                    <div class="foodmart-select-container">
-                                        <label class="qty">Var :</label>
-                                        <select class="foodmart-select" name="product_qty">
-                                            <option value="1">Level 1</option>
-                                            <option value="2">Level 2</option>
-                                            <option value="3">Level 3</option>
-                                            <option value="4">Level 4</option>
-                                        </select>
+                            @forelse ($products as $a)
+                                <div class="product-item swiper-slide">
+                                    <span class="badge bg-success position-absolute m-3">-15%</span>
+                                    <div class="product-card">
+                                        <div class="product-stock-badge">{{ $a->product_stock }}</div>
                                     </div>
-                                    <span class="price">$18.00</span>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="input-group product-qty">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus btn btn-danger btn-number"
-                                                data-type="minus">
-                                                <svg width="16" height="16">
-                                                    <use xlink:href="#minus"></use>
-                                                </svg>
-                                            </button>
-                                        </span>
-                                        <input type="text" id="quantity" name="quantity"
-                                            class="form-control input-number" value="1">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-right-plus btn btn-success btn-number"
-                                                data-type="plus">
-                                                <svg width="16" height="16">
-                                                    <use xlink:href="#plus"></use>
-                                                </svg>
-                                            </button>
-                                        </span>
+                                    <figure>
+                                        <a href="index.html" title="{{ $a->name }}">
+                                            <div class="image-crop-container"> <img
+                                                    src="{{ asset('uploads/products/' . $a->image) }}" class="tab-image">
+                                            </div>
+                                        </a>
+                                    </figure>
+                                    <h3>{{ $a->name }}</h3>
+                                    <div class="product-info-line">
+                                        <div class="foodmart-select-container">
+                                            <label class="qty">Var :</label>
+                                            <select class="foodmart-select" name="product_qty">
+                                                <option value="1">Level 1</option>
+                                                <option value="2">Level 2</option>
+                                                <option value="3">Level 3</option>
+                                                <option value="4">Level 4</option>
+                                            </select>
+                                        </div>
+                                        <span class="price">Rp.{{ number_format($a->price, 0, ',', '.') }}</span>
                                     </div>
-                                    <a href="#" class="nav-link">Add to Cart <iconify-icon
-                                            icon="uil:shopping-cart"></a>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="input-group product-qty">
+                                            <span class="input-group-btn">
+                                                <button type="button"
+                                                    class="quantity-left-minus btn btn-danger btn-number"
+                                                    data-type="minus">
+                                                    <svg width="16" height="16">
+                                                        <use xlink:href="#minus"></use>
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                            <input type="text" id="quantity" name="quantity"
+                                                class="form-control input-number" value="1">
+                                            <span class="input-group-btn">
+                                                <button type="button"
+                                                    class="quantity-right-plus btn btn-success btn-number"
+                                                    data-type="plus">
+                                                    <svg width="16" height="16">
+                                                        <use xlink:href="#plus"></use>
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <a href="#" class="nav-link">Add to Cart <iconify-icon
+                                                icon="uil:shopping-cart" /></a>
+                                    </div>
                                 </div>
-                            </div>
+                            @empty
+                                <div class="product-item swiper-slide">
+                                    <span class="badge bg-success position-absolute m-3">-9999%</span>
+                                    <div class="product-card">
+                                        <div class="product-stock-badge">9999</div>
+                                    </div>
+                                    <figure>
+                                        <a href="index.html" title="Product Title">
+                                            <img src="frontend/images/thumb-herb.jpg" class="tab-image">
+                                        </a>
+                                    </figure>
+                                    <h3>Dummy Menu</h3>
+                                    <div class="product-info-line">
+                                        <div class="foodmart-select-container">
+                                            <label class="qty">Var :</label>
+                                            <select class="foodmart-select" name="product_qty">
+                                                <option value="1">Level 1</option>
+                                                <option value="2">Level 2</option>
+                                                <option value="3">Level 3</option>
+                                                <option value="4">Level 4</option>
+                                            </select>
+                                        </div>
+                                        <span class="price">$9999</span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="input-group product-qty">
+                                            <span class="input-group-btn">
+                                                <button type="button"
+                                                    class="quantity-left-minus btn btn-danger btn-number"
+                                                    data-type="minus">
+                                                    <svg width="16" height="16">
+                                                        <use xlink:href="#minus"></use>
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                            <input type="text" id="quantity" name="quantity"
+                                                class="form-control input-number" value="1">
+                                            <span class="input-group-btn">
+                                                <button type="button"
+                                                    class="quantity-right-plus btn btn-success btn-number"
+                                                    data-type="plus">
+                                                    <svg width="16" height="16">
+                                                        <use xlink:href="#plus"></use>
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <a href="#" class="nav-link">Add to Cart <i class="bi bi-cart3"></i></a>
+                                    </div>
+                                </div>
+                            @endforelse
 
                         </div>
                     </div>
-                    <!-- / products-carousel -->
-
                 </div>
             </div>
         </div>
@@ -290,7 +312,7 @@
                                             </div>
                                             <figure>
                                                 <a href="index.html" title="Product Title">
-                                                    <img src="frontend/images/thumb-tomatoes.png" class="tab-image">
+                                                    <img src="frontend/images/kentang.jpeg" class="tab-image">
                                                 </a>
                                             </figure>
                                             <h3>Sunstar Fresh Melon Juice</h3>
@@ -334,17 +356,11 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-                                <!-- / product-grid -->
-
                             </div>
-
                             <div class="tab-pane fade" id="nav-fruits" role="tabpanel" aria-labelledby="nav-fruits-tab">
-
                                 <div
                                     class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
                                     <div class="col">
                                         <div class="product-item swiper-slide">
                                             <span class="badge bg-success position-absolute m-3">-15%</span>
@@ -400,7 +416,6 @@
 
                                 </div>
                                 <!-- / product-grid -->
-
                             </div>
                             <div class="tab-pane fade" id="nav-juices" role="tabpanel" aria-labelledby="nav-juices-tab">
 
@@ -463,7 +478,6 @@
                                 <!-- / product-grid -->
 
                             </div>
-
                         </div>
                     </div>
 
