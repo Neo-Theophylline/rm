@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\BillBackendController;
 use App\Http\Controllers\backend\UserBackendController;
 use App\Http\Controllers\backend\OptionBackendController;
+use App\Http\Controllers\Frontend\HomeFrontendController;
 use App\Http\Controllers\backend\ProductBackendController;
 use App\Http\Controllers\Auth\LoginController;
 
