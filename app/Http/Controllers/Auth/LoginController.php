@@ -45,7 +45,7 @@ class LoginController extends Controller
 
             // 🔥 REDIRECT BERDASARKAN ROLE
             if ($user->role === 'waiter') {
-                return redirect()->route('home.frontend');
+                return redirect()->route('choose.table');
             }
 
             if ($user->role === 'admin' || $user->role === 'superadmin') {

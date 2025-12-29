@@ -10,5 +10,8 @@ class Product extends Model
 
     protected $guarded = [];
 
-    //relasi
+     public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }

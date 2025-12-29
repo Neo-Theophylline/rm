@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\backend\BillBackendController;
 use App\Http\Controllers\backend\UserBackendController;
 use App\Http\Controllers\backend\OptionBackendController;
-use App\Http\Controllers\Frontend\HomeFrontendController;
+use App\Http\Controllers\Frontend\MenuFrontendController;
 use App\Http\Controllers\backend\ProductBackendController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Frontend\TableFrontendController;
 
 
 // =========================
@@ -23,7 +25,15 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('authUser')->group(function () {
 
     // FRONTEND HOME (waiter)
-    Route::get('/', [HomeFrontendController::class, 'index'])->name('home.frontend');
+    Route::get('/menus/{cart}', [MenuFrontendController::class, 'index'])->name('pages.frontend.menu.index');
+
+    Route::get('/', [TableFrontendController::class, 'index'])->name('choose.table');
+    Route::post('/choose-table/{table}', [TableFrontendController::class, 'select'])->name('choose.table.select');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.updateQty');
+    Route::post('/cart/action', [CartController::class, 'ajaxAction'])->name('cart.ajax');
+
+
 
     // BACKEND
     Route::get('/dashboard', function () {
