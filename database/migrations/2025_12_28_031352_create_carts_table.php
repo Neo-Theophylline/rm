@@ -9,15 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
 {
-    Schema::create('products', function (Blueprint $table) {
+    Schema::create('carts', function (Blueprint $table) {
         $table->id();
-        $table->string('name');
-        $table->integer('price');
-        $table->integer('stock');
-        $table->enum('type', ['food', 'drink']);
-        $table->string('image')->nullable();
+        $table->foreignId('table_id')->constrained()->onDelete('cascade');
+        $table->enum('status', ['draft', 'locked', 'paid', 'cancel'])->default('draft');
         $table->timestamps();
     });
 }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('carts');
     }
 };

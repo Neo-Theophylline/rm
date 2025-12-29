@@ -3,22 +3,21 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+    use App\Models\Cart;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
+public function boot(): void
+{
+    View::composer('layouts.frontend.cart', function ($view) {
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+        $cart = Cart::with('items.product', 'items.variant')
+            ->where('status', 'draft')
+            ->first();
+
+        $view->with('cart', $cart);
+    });
+}
+
 }
