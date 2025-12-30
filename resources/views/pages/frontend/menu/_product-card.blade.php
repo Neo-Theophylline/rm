@@ -1,3 +1,33 @@
+<style>
+    .product-item {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* container gambar */
+    .product-item figure {
+        width: 100%;
+        height: 210px;
+        /* 🔥 KUNCI TINGGI */
+        margin: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        background: #f5f5f5;
+        /* fallback kalau gambar kecil */
+    }
+
+    /* gambar */
+    .product-item figure img.tab-image {
+        width: 100%;
+        height: 100%;
+        /* 🔥 PENTING */
+        object-fit: cover;
+        /* konsisten & rapi */
+        object-position: center;
+        display: block;
+    }
+</style>
 <div class="col">
     <div class="product-item">
 

@@ -20,9 +20,11 @@
                             <tbody>
                                 @forelse ($products as $product)
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <th scope="row">
+                                            {{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}
+                                        </th>
                                         <td>{{ $product->name }}</td>
-                                        <td>{{ $product->product_stock }}</td>
+                                        <td>{{ $product->stock }}</td>
                                         <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
 
                                         <td style="text-align: center;">

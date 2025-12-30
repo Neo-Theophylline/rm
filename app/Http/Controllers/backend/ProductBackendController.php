@@ -11,9 +11,10 @@ class ProductBackendController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('id', 'desc')->paginate(10);
         return view('pages.backend.product.index', compact('products'));
     }
+
 
     public function create()
     {
@@ -23,21 +24,25 @@ class ProductBackendController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'required|image|mimes:jpg,png,jpeg',
             'name' => 'required|unique:products,name',
-            'product_stock' => 'required|integer',
-            'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'type' => 'required|in:food,drink',
         ]);
+
 
         // === UPLOAD MENGGUNAKAN STORAGE LINK ===
         $imagePath = $request->file('image')->store('products', 'public');
 
         Product::create([
-            'image' => $imagePath, // contoh: products/1726389123.jpg
+            'image' => $imagePath,
             'name' => $request->name,
-            'product_stock' => $request->product_stock,
+            'stock' => $request->stock, // ⬅️ mapping ke stock
             'price' => $request->price,
+            'type' => $request->type, // ⬅️ pastikan dikirim dari form
         ]);
+
 
         return redirect()->route('product.index')->with('success', 'Product created successfully');
     }
@@ -55,13 +60,21 @@ class ProductBackendController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
             'name' => 'required|unique:products,name,' . $product->id,
-            'product_stock' => 'required|integer',
-            'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'type' => 'required|in:food,drink',
         ]);
 
-        $data = $request->only(['name', 'product_stock', 'price']);
+
+        $data = [
+            'name' => $request->name,
+            'stock' => $request->stock,
+            'price' => $request->price,
+            'type' => $request->type,
+        ];
+
 
         // === UPDATE GAMBAR BARU ===
         if ($request->hasFile('image')) {

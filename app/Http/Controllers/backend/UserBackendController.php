@@ -12,7 +12,7 @@ class UserBackendController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
         return view('pages.backend.user.index', compact('users'));
     }
 
@@ -24,7 +24,7 @@ class UserBackendController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
@@ -64,7 +64,7 @@ class UserBackendController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required|in:admin,superadmin,waiter',
@@ -74,19 +74,19 @@ class UserBackendController extends Controller
 
         $data = $request->only(['name', 'email', 'role', 'status']);
 
-        if ($request->password) {
+        if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
 
-        // === UPDATE IMAGE ===
+        // === IMAGE UPDATE (AMAN) ===
         if ($request->hasFile('image')) {
 
-            // HAPUS FILE LAMA (jika ada)
+            // hapus image lama
             if ($user->image && Storage::disk('public')->exists($user->image)) {
                 Storage::disk('public')->delete($user->image);
             }
 
-            // UPLOAD BARU
+            // simpan image baru
             $data['image'] = $request->file('image')->store('users', 'public');
         }
 
@@ -97,7 +97,6 @@ class UserBackendController extends Controller
 
     public function destroy(User $user)
     {
-        // === DELETE IMAGE ===
         if ($user->image && Storage::disk('public')->exists($user->image)) {
             Storage::disk('public')->delete($user->image);
         }

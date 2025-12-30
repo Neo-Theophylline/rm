@@ -22,8 +22,9 @@
                             <tbody>
                                 @forelse ($users as $user)
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-
+                                        <th scope="row">
+                                            {{ $users->firstItem() + $loop->index }}
+                                        </th>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ ucfirst($user->role) }}</td>
 
@@ -66,8 +67,10 @@
                                     </tr>
                                 @endforelse
                             </tbody>
-
                         </table>
+                        <div class="d-flex justify-content-end mt-3">
+                            {{ $users->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
+                        </div>
                     </div>
 
                 </div>

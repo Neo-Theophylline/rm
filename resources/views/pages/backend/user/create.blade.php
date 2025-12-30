@@ -57,14 +57,23 @@
                             {{-- ROLE --}}
                             <div class="form-group col-lg-6">
                                 <label for="role">Role</label>
-                                <select name="role" class="form-control select-role">
-                                    <option value="" disabled selected>-- Choose Role --</option>
-                                    <option value="superadmin">Superadmin</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="waiter">Waiter</option>
-                                </select>
+                                <select name="role" class="form-control select-role" required>
+                                    <option value="">-- Choose Role --</option>
 
+                                    <option value="superadmin" {{ old('role') === 'superadmin' ? 'selected' : '' }}>
+                                        Superadmin
+                                    </option>
+
+                                    <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>
+                                        Admin
+                                    </option>
+
+                                    <option value="waiter" {{ old('role') === 'waiter' ? 'selected' : '' }}>
+                                        Waiter
+                                    </option>
+                                </select>
                             </div>
+
 
                             {{-- STATUS --}}
                             <div class="form-group col-lg-6">
