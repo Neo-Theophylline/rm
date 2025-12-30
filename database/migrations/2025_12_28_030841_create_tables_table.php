@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->string('table_name'); // Meja 1
         $table->string('floor');        // Lantai 1
-        $table->enum('status', ['available', 'occupied'])->default('available');
+        $table->enum('status', ['available', 'reserved', 'occupied'])->default('available');
         $table->enum('type', ['regular', 'premium'])->default('regular');
         $table->timestamps();
     });

@@ -29,8 +29,8 @@
             @endif
 
             <input type="number" class="form-control mb-2" name="qty" value="1" min="1">
-            <input type="hidden" name="cart_id" value="{{ $cart->id }}">
             <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="cart_id" value="{{ session('cart_id') }}">
             <button class="btn btn-primary w-100">Add to Cart</button>
         </form>
 

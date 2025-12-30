@@ -9,10 +9,10 @@ use App\Http\Controllers\Controller;
 
 class MenuFrontendController extends Controller
 {
-    public function index(Cart $cart)
-    {
-       $products = Product::with('variants')->get();
+public function index()
+{
+    $products = Product::with('variants')->get();
+    return view('pages.frontend.menu.index', compact('products'));
+}
 
-        return view('pages.frontend.menu.index', compact('products', 'cart'));
-    }
 }

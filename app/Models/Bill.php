@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Table;
 
-class Cart extends Model
+class Bill extends Model
 {
     protected $guarded = [];
 
@@ -14,9 +13,10 @@ class Cart extends Model
         return $this->belongsTo(Table::class);
     }
 
-    public function items()
+    public function cart()
     {
-        return $this->hasMany(CartItem::class);
+        return $this->belongsTo(Cart::class);
     }
 }
+
 

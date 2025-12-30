@@ -32,6 +32,8 @@ Route::middleware('authUser')->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.updateQty');
     Route::post('/cart/action', [CartController::class, 'ajaxAction'])->name('cart.ajax');
+    Route::post('/cart/order', [CartController::class, 'order'])->name('cart.order');
+
 
 
 

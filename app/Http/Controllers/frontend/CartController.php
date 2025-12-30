@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\CartItem;
+use App\Models\Bill;
+use App\Models\Cart;
 use App\Models\Product;
-use App\Models\ProductVariant;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
    public function add(Request $request)
 {
     $request->validate([
-        'cart_id' => 'required|exists:carts,id',
         'product_id' => 'required|exists:products,id',
         'qty' => 'required|integer|min:1',
         'product_variant_id' => 'nullable|exists:product_variants,id',
     ]);
+
+    $cartId = session('cart_id');
+    $cart = Cart::findOrFail($cartId);
 
     $product = Product::findOrFail($request->product_id);
 
@@ -29,7 +34,7 @@ class CartController extends Controller
 
     $price = $product->price + ($variant->extra_price ?? 0);
 
-    $cartItem = CartItem::where('cart_id', $request->cart_id)
+    $cartItem = CartItem::where('cart_id', $cart->id)
         ->where('product_id', $product->id)
         ->where('product_variant_id', $variant?->id)
         ->first();
@@ -38,7 +43,7 @@ class CartController extends Controller
         $cartItem->increment('qty', $request->qty);
     } else {
         CartItem::create([
-            'cart_id' => $request->cart_id,
+            'cart_id' => $cart->id,
             'product_id' => $product->id,
             'product_variant_id' => $variant?->id,
             'qty' => $request->qty,
@@ -50,7 +55,6 @@ class CartController extends Controller
 
     return back()->with('success', 'Item berhasil ditambahkan');
 }
-
 public function updateQty(Request $request)
 {
     $request->validate([
@@ -118,4 +122,37 @@ public function ajaxAction(Request $request)
 
     return response()->json(['success' => true]);
 }
+public function order(Request $request)
+{
+    $request->validate([
+        'note' => 'nullable|string'
+    ]);
+
+    $cart = Cart::with(['items', 'table'])
+        ->where('id', session('cart_id'))
+        ->where('status', 'draft')
+        ->firstOrFail();
+
+    $bill = Bill::create([
+        'cart_id' => $cart->id,
+        'table_id' => $cart->table_id,
+        'total' => $cart->items->sum(fn ($i) => $i->price * $i->qty),
+        'status' => 'unpaid',
+    ]);
+
+    $cart->update([
+        'status' => 'locked',
+        'note' => $request->note
+    ]);
+
+    $cart->table->update([
+        'status' => 'occupied'
+    ]);
+
+    session()->forget('cart_id');
+
+    return redirect()->route('choose.table')
+        ->with('success', 'Order berhasil dikirim ke kasir');
+}
+
 }

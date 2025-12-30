@@ -25,10 +25,13 @@
                                 @endif
 
                                 <div class="d-flex gap-1 mt-1">
-                                    <button class="btn btn-sm btn-outline-secondary cart-btn" data-action="decrease">−</button>
+                                    <button class="btn btn-sm btn-outline-secondary cart-btn"
+                                        data-action="decrease">−</button>
                                     <span class="qty">{{ $item->qty }}</span>
-                                    <button class="btn btn-sm btn-outline-secondary cart-btn" data-action="increase">+</button>
-                                    <button class="btn btn-sm btn-outline-danger cart-btn" data-action="remove">🗑</button>
+                                    <button class="btn btn-sm btn-outline-secondary cart-btn"
+                                        data-action="increase">+</button>
+                                    <button class="btn btn-sm btn-outline-danger cart-btn"
+                                        data-action="remove">🗑</button>
                                 </div>
                             </div>
 
@@ -49,40 +52,46 @@
                         Nothing in cart
                     </li>
                 @endif
+                @if ($cart && $cart->items->count())
+                    <form method="POST" action="{{ route('cart.order') }}">
+                        @csrf
 
-                <li>
-                    <div class="foodmart-form-group">
-                        <h5><label class="text-primary">Note Cnh:</label></h5>
-                        <textarea id="catatan-tambahan" name="catatan-tambahan" rows="4"></textarea>
-                    </div>
-                </li>
-            </ul>
+                        <li>
+                            <div class="foodmart-form-group">
+                                <h5><label class="text-primary">Note</label></h5>
+                                <textarea name="note" rows="4" class="form-control" placeholder="Catatan pesanan..."></textarea>
+                            </div>
+                        </li>
 
-            <button class="w-100 btn btn-primary btn-lg" disabled type="submit">Order</button>
+                        <button class="w-100 btn btn-primary btn-lg mt-3">
+                            Order
+                        </button>
+                    </form>
+                @endif
         </div>
     </div>
 </div>
 
 <script>
-document.querySelectorAll('.cart-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-        let item = this.closest('.cart-item');
-        let id = item.dataset.id;
-        let action = this.dataset.action;
+    document.querySelectorAll('.cart-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            let item = this.closest('.cart-item');
+            let id = item.dataset.id;
+            let action = this.dataset.action;
 
-        fetch("{{ route('cart.ajax') }}", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                cart_item_id: id,
-                action: action
-            })
-        })
-        .then(res => res.json())
-        .then(() => location.reload());
+            fetch("{{ route('cart.ajax') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cart_item_id: id,
+                        action: action
+                    })
+                })
+                .then(res => res.json())
+                .then(() => location.reload());
+        });
     });
-});
 </script>

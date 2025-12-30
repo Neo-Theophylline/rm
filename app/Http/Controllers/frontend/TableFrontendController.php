@@ -14,24 +14,22 @@ class TableFrontendController extends Controller
         return view('pages.frontend.meja.index', compact('tables'));
     }
 
-    public function select(Table $table)
-    {
-        $cart = $table->activeCart;
+public function select(Table $table)
+{
+    $cart = $table->activeCart;
 
-        if (!$cart) {
-            // kalau belum ada → buat cart baru
-            $cart = Cart::create([
-                'table_id' => $table->id,
-                'status' => 'draft',
-            ]);
+    if (!$cart) {
+        $cart = Cart::create([
+            'table_id' => $table->id,
+            'status' => 'draft',
+        ]);
 
-            // ubah status meja
-            $table->update([
-                'status' => 'occupied'
-            ]);
-        }
-
-        // redirect ke halaman menu
-        return redirect()->route('pages.frontend.menu.index', $cart->id);
+        $table->update(['status' => 'reserved']);
     }
+
+    session(['cart_id' => $cart->id]);
+
+    return redirect()->route('pages.frontend.menu.index', $cart->id);
+}
+
 }
