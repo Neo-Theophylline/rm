@@ -60,13 +60,21 @@
                             {{-- ROLE --}}
                             <div class="form-group col-lg-6">
                                 <label for="role">Role</label>
-                                <select name="role" class="form-control">
+                                <select name="role" class="form-control select-role" required>
+                                    <option value="">-- Choose Role --</option>
+
                                     <option value="superadmin"
-                                        {{ old('role', $user->role) == 'superadmin' ? 'selected' : '' }}>Superadmin</option>
-                                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin
+                                        {{ old('role', $user->role) === 'superadmin' ? 'selected' : '' }}>
+                                        Superadmin
                                     </option>
-                                    <option value="waiter" {{ old('role', $user->role) == 'waiter' ? 'selected' : '' }}>
-                                        Waiter</option>
+
+                                    <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
+                                        Admin
+                                    </option>
+
+                                    <option value="waiter" {{ old('role', $user->role) === 'waiter' ? 'selected' : '' }}>
+                                        Waiter
+                                    </option>
                                 </select>
                             </div>
 

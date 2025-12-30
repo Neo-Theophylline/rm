@@ -44,10 +44,9 @@
 
                             {{-- STOCK --}}
                             <div class="form-group col-lg-6">
-                                <label for="product_stock">Stock</label>
-                                <input type="number" class="form-control" name="product_stock"
-                                    value="{{ old('product_stock', $product->product_stock) }}"
-                                    placeholder="Enter Product Stock">
+                                <label for="stock">Stock</label>
+                                <input type="number" class="form-control" name="stock"
+                                    value="{{ old('stock', $product->stock) }}" placeholder="Enter Product Stock">
                             </div>
 
                             {{-- PRICE --}}
@@ -56,6 +55,23 @@
                                 <input type="text" class="form-control" name="price"
                                     value="{{ old('price', $product->price) }}" placeholder="Enter Price">
                             </div>
+
+                            {{-- TYPE --}}
+                            <div class="form-group col-lg-6">
+                                <label for="type">Type</label>
+                                <select name="type" class="form-control" required>
+                                    <option value="">-- Choose Type --</option>
+
+                                    <option value="food" {{ old('type', $product->type) === 'food' ? 'selected' : '' }}>
+                                        Food
+                                    </option>
+
+                                    <option value="drink" {{ old('type', $product->type) === 'drink' ? 'selected' : '' }}>
+                                        Drink
+                                    </option>
+                                </select>
+                            </div>
+
                         </div>
 
                         <div class="form-group">

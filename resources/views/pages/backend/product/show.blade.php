@@ -9,6 +9,10 @@
         }
     </style> --}}
     <style>
+        .card-title {
+            font-size: 30px ;
+        }
+
         .profile-card-product .card-img-block {
             width: 100%;
             height: 250px;
@@ -32,7 +36,9 @@
 
                 {{-- Banner --}}
                 <div class="card-img-block">
-                    <img class="img-fluid" src="{{ asset('uploads/products/' . $product->image) }}" alt="Product image">
+                    <img class="img-fluid"
+                        src="{{ $product->image ? asset('storage/' . $product->image) : asset('backend/assets/images/no-image.png') }}"
+                        alt="Product image">
                 </div>
 
                 <div class="card-body pt-5">
@@ -44,8 +50,8 @@
 
                         {{-- STOCK --}}
                         <div class="form-group col-lg-6">
-                            <label for="product_stock">Product Stock</label>
-                            <input type="text" class="form-control" value="{{ $product->product_stock }}" disabled>
+                            <label for="stock">Product Stock</label>
+                            <input type="text" class="form-control" value="{{ $product->stock }}" disabled>
                         </div>
 
                         {{-- PRICE --}}
@@ -54,6 +60,13 @@
                             <input type="text" class="form-control"
                                 value="Rp {{ number_format($product->price, 0, ',', '.') }}" disabled>
                         </div>
+
+                        <div class="form-group col-lg-6">
+                            <label>Type</label>
+                            <input type="text" class="form-control text-capitalize" value="{{ $product->type }}"
+                                disabled>
+                        </div>
+
 
                     </div>
 
