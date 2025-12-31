@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <a href="{{ route('product.create') }}" style="float: right;">Add data</a>
-                    <h5 class="card-title">Small Table</h5>
+                    <h5 class="card-title">Product</h5>
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>

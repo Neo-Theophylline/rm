@@ -9,6 +9,7 @@ use App\Http\Controllers\backend\TableBackendController;
 use App\Http\Controllers\Frontend\MenuFrontendController;
 use App\Http\Controllers\backend\ProductBackendController;
 use App\Http\Controllers\Frontend\TableFrontendController;
+use App\Http\Controllers\Backend\DashboardBackendController;
 use App\Http\Controllers\backend\ProductVariantBackendController;
 
 
@@ -39,13 +40,14 @@ Route::middleware('authUser')->group(function () {
 
 
     // BACKEND
-    Route::get('/dashboard', function () {
-        return view('pages.backend.home.index');
-    })->name('dashboard');
+    Route::get('/h', [DashboardBackendController::class, 'index'])
+        ->name('dashboard');
 
     Route::resource('user', UserBackendController::class);
     Route::resource('product', ProductBackendController::class);
     Route::resource('bill', BillBackendController::class);
+    Route::post('/bill/{bill}/pay', [BillBackendController::class, 'pay'])
+        ->name('bill.pay');
     Route::resource('table', TableBackendController::class);
     Route::resource('product.variants', ProductVariantBackendController::class)
     ->only(['index','edit', 'store', 'destroy']);
@@ -55,5 +57,4 @@ Route::middleware('authUser')->group(function () {
 );
 
 
-    Route::get('/h', fn() => view('pages.backend.home.index'));
 });
