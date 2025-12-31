@@ -35,6 +35,9 @@
                                                 <a href="{{ route('product.edit', $product->id) }}"
                                                     class="btn btn-outline-warning btn-sm">Edit</a>
 
+                                                <a href="{{ route('product.variants.index', $product) }}"
+                                                    class="btn btn-outline-warning btn-sm">Variants</a>
+
                                                 <form id="delete-form-{{ $product->id }}"
                                                     action="{{ route('product.destroy', $product->id) }}" method="POST"
                                                     style="display: inline;">

@@ -23,9 +23,9 @@
                  <i class="bi bi-fork-knife"></i><span>Product</span>
              </a>
          </li>
-         <li class="{{ Request::routeIs('option.*') ? 'active' : '' }}">
-             <a href="{{ route('option.index') }}">
-                 <i class="bi bi-three-dots"></i><span>Option</span>
+         <li class="{{ Request::routeIs('table.*') ? 'active' : '' }}">
+             <a href="{{ route('table.index') }}">
+                 <i class="bi bi-table"></i><span>Table</span>
              </a>
          </li>
          <li class="{{ Request::routeIs('bill.*') ? 'active' : '' }}">

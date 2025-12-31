@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
-   public function add(Request $request)
+public function add(Request $request)
 {
     $request->validate([
         'product_id' => 'required|exists:products,id',
@@ -32,7 +32,13 @@ class CartController extends Controller
 
     $variant = ProductVariant::find($request->product_variant_id);
 
+    // hitung harga dasar
     $price = $product->price + ($variant->extra_price ?? 0);
+
+    // jika meja premium, tambahkan 0 di belakang (misal kalikan 10)
+    if ($cart->table->type === 'premium') {
+        $price = $price * 10; // ini bikin harga premium lebih mahal
+    }
 
     $cartItem = CartItem::where('cart_id', $cart->id)
         ->where('product_id', $product->id)
@@ -41,6 +47,10 @@ class CartController extends Controller
 
     if ($cartItem) {
         $cartItem->increment('qty', $request->qty);
+        // update price kalau premium
+        if ($cart->table->type === 'premium') {
+            $cartItem->update(['price' => $price]);
+        }
     } else {
         CartItem::create([
             'cart_id' => $cart->id,
@@ -55,6 +65,7 @@ class CartController extends Controller
 
     return back()->with('success', 'Item berhasil ditambahkan');
 }
+
 public function updateQty(Request $request)
 {
     $request->validate([
