@@ -15,6 +15,13 @@ class Table extends Model
 
     public function activeCart()
     {
-        return $this->hasOne(Cart::class)->where('status', 'active');
+        return $this->hasOne(Cart::class)->where('status', 'draft');
+    }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
     }
 }
+
+

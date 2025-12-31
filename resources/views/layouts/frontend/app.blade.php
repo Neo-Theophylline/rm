@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Resto Ayo Mama</title>
+    <title>Im Bassing Martt</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <link rel="icon" href="{{ asset('backend/assets/images/jas.jfif') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -77,7 +78,7 @@
                 <div class="col-sm-4 col-lg-3 text-center text-sm-start">
                     <div class="main-logo">
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('frontend/images/logo.png') }}" alt="logo" class="img-fluid">
+                            <img src="{{ asset('frontend/images/Resto.png') }}" alt="logo" class="img-fluid">
                         </a>
                     </div>
                 </div>

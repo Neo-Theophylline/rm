@@ -5,11 +5,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\backend\BillBackendController;
 use App\Http\Controllers\backend\UserBackendController;
-use App\Http\Controllers\backend\OptionBackendController;
+use App\Http\Controllers\backend\TableBackendController;
 use App\Http\Controllers\Frontend\MenuFrontendController;
 use App\Http\Controllers\backend\ProductBackendController;
 use App\Http\Controllers\Frontend\TableFrontendController;
 use App\Http\Controllers\Backend\DashboardBackendController;
+use App\Http\Controllers\backend\ProductVariantBackendController;
 
 
 // =========================
@@ -33,6 +34,8 @@ Route::middleware('authUser')->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.updateQty');
     Route::post('/cart/action', [CartController::class, 'ajaxAction'])->name('cart.ajax');
+    Route::post('/cart/order', [CartController::class, 'order'])->name('cart.order');
+
 
 
 
@@ -42,10 +45,16 @@ Route::middleware('authUser')->group(function () {
 
     Route::resource('user', UserBackendController::class);
     Route::resource('product', ProductBackendController::class);
-    Route::resource('option', OptionBackendController::class);
     Route::resource('bill', BillBackendController::class);
     Route::post('/bill/{bill}/pay', [BillBackendController::class, 'pay'])
         ->name('bill.pay');
+    Route::resource('table', TableBackendController::class);
+    Route::resource('product.variants', ProductVariantBackendController::class)
+    ->only(['index','edit', 'store', 'destroy']);
+    Route::resource(
+    'product.variants',
+    \App\Http\Controllers\backend\ProductVariantBackendController::class
+);
 
 
 });

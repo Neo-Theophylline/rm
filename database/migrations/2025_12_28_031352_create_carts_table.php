@@ -13,8 +13,9 @@ return new class extends Migration
 {
     Schema::create('carts', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('table_id')->constrained()->onDelete('cascade');
-        $table->enum('status', ['draft', 'locked', 'paid', 'cancel'])->default('draft');
+        $table->foreignId('table_id')->constrained()->cascadeOnDelete();
+        $table->text('note')->nullable();
+        $table->enum('status', ['draft', 'locked', 'ordered', 'paid'])->default('draft');
         $table->timestamps();
     });
 }

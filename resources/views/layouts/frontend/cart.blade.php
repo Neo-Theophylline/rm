@@ -11,36 +11,33 @@
             </h4>
 
             <ul class="list-group mb-3">
-
                 @if ($cart && $cart->items->count())
                     @foreach ($cart->items as $item)
-                        <li class="list-group-item d-flex justify-content-between align-items-center cart-item"
-                            data-id="{{ $item->id }}">
-
+                        @php
+                            $isPremium = $cart->table->type === 'premium';
+                        @endphp
+                        <li class="list-group-item d-flex justify-content-between align-items-center cart-item {{ $isPremium ? 'premium-cart' : '' }}" data-id="{{ $item->id }}">
                             <div>
-                                <strong>{{ $item->product->name }}</strong><br>
-
+                                <strong class="{{ $isPremium ? 'text-gold' : '' }}">{{ $item->product->name }}</strong><br>
                                 @if ($item->variant)
-                                    <small>{{ $item->variant->name }}</small>
+                                    <small class="{{ $isPremium ? 'text-gold' : '' }}">{{ $item->variant->name }}</small>
                                 @endif
-
                                 <div class="d-flex gap-1 mt-1">
-                                    <button class="btn btn-sm btn-outline-secondary cart-btn" data-action="decrease">−</button>
+                                    <button class="btn btn-sm {{ $isPremium ? 'btn-outline-warning' : 'btn-outline-secondary' }} cart-btn" data-action="decrease">−</button>
                                     <span class="qty">{{ $item->qty }}</span>
-                                    <button class="btn btn-sm btn-outline-secondary cart-btn" data-action="increase">+</button>
-                                    <button class="btn btn-sm btn-outline-danger cart-btn" data-action="remove">🗑</button>
+                                    <button class="btn btn-sm {{ $isPremium ? 'btn-outline-warning' : 'btn-outline-secondary' }} cart-btn" data-action="increase">+</button>
+                                    <button class="btn btn-sm {{ $isPremium ? 'btn-outline-warning' : 'btn-outline-danger' }} cart-btn" data-action="remove">🗑</button>
                                 </div>
                             </div>
-
-                            <span class="price">
+                            <span class="price {{ $isPremium ? 'text-gold' : '' }}">
                                 Rp {{ number_format($item->price * $item->qty) }}
                             </span>
                         </li>
                     @endforeach
 
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li class="list-group-item d-flex justify-content-between {{ $isPremium ? 'premium-cart' : '' }}">
                         <span>Total</span>
-                        <strong>
+                        <strong class="{{ $isPremium ? 'text-gold' : '' }}">
                             Rp {{ number_format($cart->items->sum(fn($i) => $i->price * $i->qty)) }}
                         </strong>
                     </li>
@@ -49,23 +46,57 @@
                         Nothing in cart
                     </li>
                 @endif
-
-                <li>
-                    <div class="foodmart-form-group">
-                        <h5><label class="text-primary">Note Cnh:</label></h5>
-                        <textarea id="catatan-tambahan" name="catatan-tambahan" rows="4"></textarea>
-                    </div>
-                </li>
             </ul>
 
-            <button class="w-100 btn btn-primary btn-lg" disabled type="submit">Order</button>
+            @if ($cart && $cart->items->count())
+            <form method="POST" action="{{ route('cart.order') }}">
+                @csrf
+                <div class="foodmart-form-group mb-3">
+                    <h5><label class="text-primary">Note</label></h5>
+                    <textarea name="note" rows="4" class="form-control" placeholder="Catatan pesanan..."></textarea>
+                </div>
+                <button class="w-100 btn {{ $isPremium ? 'btn-premium' : 'btn-primary' }} btn-lg mt-2">Order</button>
+            </form>
+            @endif
         </div>
     </div>
 </div>
 
+<style>
+/* PREMIUM CART STYLING */
+.premium-cart {
+    background-color: #FFF9E5;
+}
+.text-gold {
+    color: #C9A227 !important;
+}
+.premium-cart .btn-outline-warning {
+    border-color: #C9A227;
+    color: #C9A227;
+}
+.premium-cart .btn-outline-warning:hover {
+    background: linear-gradient(135deg, #C9A227, #FFD700);
+    color: #fff;
+}
+.premium-cart .badge {
+    background-color: #C9A227;
+    color: #fff;
+}
+.btn-premium {
+    border: 1px solid #C9A227;
+    color: #C9A227;
+    background: transparent;
+    font-weight: 700;
+}
+.btn-premium:hover {
+    background: linear-gradient(135deg, #C9A227, #FFD700);
+    color: #fff;
+}
+</style>
+
 <script>
 document.querySelectorAll('.cart-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function() {
         let item = this.closest('.cart-item');
         let id = item.dataset.id;
         let action = this.dataset.action;
@@ -82,7 +113,8 @@ document.querySelectorAll('.cart-btn').forEach(btn => {
             })
         })
         .then(res => res.json())
-        .then(() => location.reload());
+        .then(() => location.reload())
+        .catch(err => console.error(err));
     });
 });
 </script>

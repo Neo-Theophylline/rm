@@ -10,30 +10,35 @@ class ProductVariantSeeder extends Seeder
 {
     public function run(): void
     {
-        $nasi = Product::where('name', 'Nasi Goreng')->first();
+        $labu = Product::where('name', 'Sup kepunyaan Labu')->first();
 
         ProductVariant::create([
-            'product_id' => $nasi->id,
+            'product_id' => $labu->id,
+            'name' => 'Normal',
+            'extra_price' => 0,
+        ]);
+        ProductVariant::create([
+            'product_id' => $labu->id,
             'name' => 'Pedas Level 1',
             'extra_price' => 1000,
         ]);
 
         ProductVariant::create([
-            'product_id' => $nasi->id,
+            'product_id' => $labu->id,
             'name' => 'Pedas Level 2',
             'extra_price' => 2000,
         ]);
 
-        $teh = Product::where('name', 'Es Teh')->first();
+        $es = Product::where('name', 'Es campur Ngawi')->first();
 
         ProductVariant::create([
-            'product_id' => $teh->id,
+            'product_id' => $es->id,
             'name' => 'dingin Level 1',
             'extra_price' => 1000,
         ]);
 
         ProductVariant::create([
-            'product_id' => $teh->id,
+            'product_id' => $es->id,
             'name' => 'dingin Level 2',
             'extra_price' => 2000,
         ]);
