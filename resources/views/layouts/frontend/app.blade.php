@@ -78,7 +78,7 @@
                 <div class="col-sm-4 col-lg-3 text-center text-sm-start">
                     <div class="main-logo">
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('frontend/images/logo.png') }}" alt="logo" class="img-fluid">
+                            <img src="{{ asset('frontend/images/Resto.png') }}" alt="logo" class="img-fluid">
                         </a>
                     </div>
                 </div>

@@ -23,7 +23,7 @@
 
             {{-- Logo + Logout --}}
             <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                <img src="{{ asset('frontend/images/logo.png') }}"
+                <img src="{{ asset('frontend/images/Resto.png') }}"
                     alt="Logo"
                     height="40"
                     class="mb-2">
