@@ -59,7 +59,7 @@
 
 <div class="table-header {{ $isPremium ? 'table-premium' : 'table-regular' }}">
     <h3 class="mb-1">
-        {{ $isPremium ? '👑' : '📦' }}
+        {{ $isPremium ? '👑' : '😋' }}
         Menu – {{ $cart->table->table_name }} - {{ $cart->table->floor }}
     </h3>
     <small class="table-type">

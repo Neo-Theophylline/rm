@@ -14,7 +14,7 @@
                                 @csrf
                                 <button type="submit"style="all: unset; width:100%; cursor:pointer;">
                                     <div class="banner-ad card-foodmart {{ $table->type === 'premium' ? 'premium-gold' : 'regular-white' }}"
-                                        style="background-image: url('{{ asset($table->type === 'premium' ? 'frontend/images/ad-image-1.png' : 'frontend/images/ad-image-2.png') }}');">
+                                        style="background-image: url('{{ asset($table->type === 'premium' ? 'frontend/images/pngegg.png' : 'frontend/images/ad-image-2.png') }}');">
                                         <div class="row banner-content p-5">
                                             <div class="content-wrapper col-md-7">
                                                 <span
