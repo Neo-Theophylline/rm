@@ -24,7 +24,6 @@ public function select(Table $table)
             'status' => 'draft',
         ]);
 
-        $table->update(['status' => 'reserved']);
     }
 
     session(['cart_id' => $cart->id]);

@@ -66,6 +66,7 @@ public function add(Request $request)
     return back()->with('success', 'Item berhasil ditambahkan');
 }
 
+
 public function updateQty(Request $request)
 {
     $request->validate([
