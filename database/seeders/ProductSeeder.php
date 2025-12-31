@@ -10,6 +10,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::create([
+            'image' => 'seeds/product/nasinasgor.jpg',
             'name' => 'Nasi Goreng',
             'price' => 20000,
             'stock' => 50,
@@ -17,6 +18,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
+            'image' => 'seeds/product/esteh.jpg',
             'name' => 'Es Teh',
             'price' => 5000,
             'stock' => 100,
