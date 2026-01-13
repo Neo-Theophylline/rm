@@ -54,6 +54,21 @@ class BillBackendController extends Controller
             ->with('success', 'Payment successful');
     }
 
+    public function receipt(Bill $bill)
+    {
+        // keamanan
+        if ($bill->status !== 'paid') {
+            abort(403, 'Bill not paid yet');
+        }
+
+        $bill->load([
+            'table',
+            'cart.items.product',
+            'cart.items.variant',
+        ]);
+
+        return view('pages.backend.bill.receipt', compact('bill'));
+    }
 
 
     /**

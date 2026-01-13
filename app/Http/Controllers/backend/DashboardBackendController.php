@@ -26,7 +26,7 @@ class DashboardBackendController extends Controller
         $bills = Bill::withTrashed()
             ->where('status', 'paid')
             ->latest()
-            ->paginate(10); // dashboard biasanya paginate
+            ->paginate(5); // dashboard biasanya paginate
 
         return view('pages.backend.home.index', compact(
             'bills',

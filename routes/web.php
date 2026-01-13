@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\backend\BillBackendController;
 use App\Http\Controllers\backend\UserBackendController;
 use App\Http\Controllers\backend\TableBackendController;
+use App\Http\Controllers\Backend\ReportBackendController;
 use App\Http\Controllers\Frontend\MenuFrontendController;
 use App\Http\Controllers\backend\ProductBackendController;
 use App\Http\Controllers\Frontend\TableFrontendController;
@@ -50,11 +51,18 @@ Route::middleware('authUser')->group(function () {
         ->name('bill.pay');
     Route::resource('table', TableBackendController::class);
     Route::resource('product.variants', ProductVariantBackendController::class)
-    ->only(['index','edit', 'store', 'destroy']);
+        ->only(['index', 'edit', 'store', 'destroy']);
     Route::resource(
-    'product.variants',
-    \App\Http\Controllers\backend\ProductVariantBackendController::class
-);
+        'product.variants',
+        \App\Http\Controllers\backend\ProductVariantBackendController::class
+    );
 
+    // ✅ TAMBAH INI
+    Route::get(
+        '/bill/{bill}/receipt',
+        [BillBackendController::class, 'receipt']
+    )->name('bill.receipt');
 
+    Route::get('/report', [ReportBackendController::class, 'index'])
+        ->name('report.index');
 });

@@ -9,11 +9,11 @@
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">invoice</th>
-                                    <th scope="col">total cost</th>
-                                    <th scope="col">payment method</th>
-                                    <th scope="col">status paid</th>
+                                    <th scope="col" style="text-align: center;">#</th>
+                                    <th scope="col" style="text-align: center;">invoice</th>
+                                    <th scope="col" style="text-align: center;">total cost</th>
+                                    <th scope="col" style="text-align: center;">status paid</th>
+                                    <th scope="col" style="text-align: center;">receipt</th>
                                     <th scope="col" style="text-align: center; width: 120px;">option</th>
                                 </tr>
                             </thead>
@@ -26,16 +26,29 @@
 
                                         <td>Rp. {{ number_format($bill->total, 0, ',', '.') }}</td>
 
-                                        <td>Cash</td>
+
 
                                         <td>
-                                            @if ($bill->status === 'paid')
-                                                <span class="badge bg-success">Paid</span>
-                                            @else
-                                                <span class="badge bg-warning text-dark">Unpaid</span>
-                                            @endif
-                                        </td>
+                                            <div class="buttons d-flex justify-content-center">
 
+                                                @if ($bill->status === 'paid')
+                                                    <span class="badge bg-success">Paid</span>
+                                                @else
+                                                    <span class="badge bg-warning text-dark">Unpaid</span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="buttons d-flex justify-content-center">
+
+                                                @if ($bill->status === 'paid')
+                                                    <a href="{{ route('bill.receipt', $bill->id) }}" target="_blank"
+                                                        class="btn btn-outline-primary btn-sm">
+                                                        Print
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </td>
                                         <td style="text-align:center">
                                             <div class="buttons d-flex justify-content-center" style="gap:6px">
 
@@ -43,6 +56,7 @@
                                                     class="btn btn-outline-secondary btn-sm">
                                                     Detail
                                                 </a>
+
 
                                                 <form id="delete-form-{{ $bill->id }}"
                                                     action="{{ route('bill.destroy', $bill->id) }}" method="POST">
@@ -54,7 +68,6 @@
                                                         Delete
                                                     </button>
                                                 </form>
-
                                             </div>
                                         </td>
                                     </tr>

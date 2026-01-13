@@ -38,52 +38,39 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Monthly Report</h5>
+                    <h5 class="card-title">Latest Transactions</h5>
+
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">invoice</th>
-                                    <th scope="col">total cost</th>
-                                    <th scope="col">payment method</th>
-                                    <th scope="col">status paid</th>
+                                    <th>#</th>
+                                    <th>Invoice</th>
+                                    <th>Total Cost</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($bills as $bill)
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>INV-{{ str_pad($bill->id, 5, '0', STR_PAD_LEFT) }}</td>
-
-                                        <td>Rp. {{ number_format($bill->total, 0, ',', '.') }}</td>
-
-                                        <td>Cash</td>
-
-                                        <td>
-                                            @if ($bill->status === 'paid')
-                                                <span class="badge bg-success">Paid</span>
-                                            @else
-                                                <span class="badge bg-warning text-dark">Unpaid</span>
-                                            @endif
-                                        </td>
+                                        <td>Rp {{ number_format($bill->total, 0, ',', '.') }}</td>
+                                        <td>{{ $bill->created_at->format('d M Y') }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted">
-                                            No bills found.
+                                        <td colspan="4" class="text-center text-muted">
+                                            No transactions found.
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="mt-3 d-flex justify-content-end">
-                            {{ $bills->links('pagination::bootstrap-5') }}
-                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!--End Row-->

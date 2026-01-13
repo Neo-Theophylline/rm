@@ -33,6 +33,11 @@
                  <i class="bi bi-cash-stack"></i><span>Bill</span>
              </a>
          </li>
+         <li class="{{ Request::routeIs('report.*') ? 'active' : '' }}">
+             <a href="{{ route('report.index') }}">
+                 <i class="bi bi-receipt-cutoff"></i><span>Report</span>
+             </a>
+         </li>
      </ul>
 
  </div>
