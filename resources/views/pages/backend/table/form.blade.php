@@ -13,15 +13,17 @@
                value="{{ old('floor', $table->floor ?? '') }}">
     </div>
 
+
     <div class="form-group col-lg-6">
         <label>Type</label>
         <select name="type" class="form-control">
-            @foreach(['regular','premium'] as $t)
+            @foreach (['regular', 'premium'] as $t)
                 <option value="{{ $t }}"
-                    @selected(old('type', $table->type ?? '') == $t)>
+                    @selected(old('type', $table->type ?? 'regular') == $t)>
                     {{ ucfirst($t) }}
                 </option>
             @endforeach
         </select>
     </div>
 </div>
+div>
