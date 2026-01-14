@@ -22,7 +22,42 @@
             Yearly
         </a>
     </div>
+<form method="GET" action="{{ route('report.index') }}" class="mb-3 d-flex align-items-center gap-2">
+    <input type="hidden" name="filter" value="{{ $filter }}">
 
+    @if ($filter === 'day')
+        <input type="date"
+               name="value"
+               value="{{ $value ?? now()->toDateString() }}"
+               class="form-control w-auto"
+               onchange="this.form.submit()">
+
+    @elseif ($filter === 'week')
+        <input type="week"
+               name="value"
+               value="{{ $value ?? now()->format('Y-\WW') }}"
+               class="form-control w-auto"
+               onchange="this.form.submit()">
+
+    @elseif ($filter === 'month')
+        <input type="month"
+               name="value"
+               value="{{ $value ?? now()->format('Y-m') }}"
+               class="form-control w-auto"
+               onchange="this.form.submit()">
+
+    @elseif ($filter === 'year')
+        <select name="value"
+                class="form-control w-auto"
+                onchange="this.form.submit()">
+            @for ($y = now()->year; $y >= now()->year - 5; $y--)
+                <option value="{{ $y }}" {{ $value == $y ? 'selected' : '' }}>
+                    {{ $y }}
+                </option>
+            @endfor
+        </select>
+    @endif
+</form>
 
     <div class="card">
         <div class="card-body">
